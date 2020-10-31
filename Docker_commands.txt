@@ -144,9 +144,61 @@ index.php
 <?
 echo "Hello Alia \n\n" ;
 
+- docker-compose up
+- here if we change anything in the index page it will effect the in the container
+- 
+--------------------------------------------------------------------------------------------------------------------
+5_3)
+in index.php file we get only basic mysqli info after installing some thing we get fully mysqli info
+
+Dockerfile
+------------------
+## we need mysqli for connection for the database
+## not enabled by default in php
+FROM php:7.2-apache
+RUN apt-get -y update \
+&& apt-get install -y libicu-dev \
+&& docker-php-ext-configure intl \
+&& docker-php-ext-install intl
+
+index.php
+-------------
+<?php
+phpinfo();
 
 
+docker-compose.yml
+---------------------
+version: '3'
+services: 
+    phpapp:
+        build: 
+            context: ./
+            dockerfile: Dockerfile
+        image: phpapp:123
+        ports: 
+            - "8080:80"
+        volumes: 
+            - "./:/var/www/html"
+        container_name: my-php-app
+ 
+-----------------
+in index.php file we get only basic mysqli info after installing docker-php-ext-install mysqli && docker-php-ext-enable mysqli we get fully mysqli info
 
+Dockerfile
+-----------------
+FROM php:7.2-apache
+RUN apt-get -y update \
+&& apt-get install -y libicu-dev \
+&& docker-php-ext-configure intl \
+&& docker-php-ext-install intl 
+RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
+
+
+- docker-compose stop
+- ctrl + c
+- docker-compose up --build
+--------------------------------------------------------------------------------------------------------------------
 
 
 
