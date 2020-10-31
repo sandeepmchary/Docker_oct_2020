@@ -11,9 +11,8 @@ services:
             - "./:/var/www/html"
         container_name: myphp-app
     db:
-        image: mysql:latest
+        image: mysql:5.7
         restart: always
         environment: 
             MYSQL_ROOT_PASSWORD: my!!root!!passwd
         container_name: myphp-db
-        
