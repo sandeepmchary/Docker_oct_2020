@@ -1,5 +1,5 @@
 <?
-header("content-type: text")
+header("content-type: text");
 $host = "db";// The host name db from our docker-compose file
 $username = "root"; // We use the root password
 $pw = "my!!root!!passwd" // This the password we set in the docker-compose file
