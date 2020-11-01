@@ -8,4 +8,6 @@ if($conn->connect_errno > 0){
     echo $db->connect_error;
 }else{
     echo "DB connection successfull\n\n";
+    // we read out the connection
+    $result
 }
