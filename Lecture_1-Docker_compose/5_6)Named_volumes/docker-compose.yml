@@ -5,8 +5,8 @@ services:
         restart: always
         container_name: myphpapp-dbnv
         environment: 
-            MYSQL_ROOT_PASSWORD:
-            MYSQL_DATABASE:
+            MYSQL_ROOT_PASSWORD: somepass
+            MYSQL_DATABASE: somedatabase
         volumes: 
             - my-vol:/var/lib/sql
 volumes: 
