@@ -1,0 +1,5 @@
+- volumes are two types
+    - Hosted Directory volume Mounting
+    - Named volume Mounting
+- here we discussing about Named Hosted volume
+- with databases
