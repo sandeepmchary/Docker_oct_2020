@@ -7,8 +7,8 @@ services:
         environment:
             MYSQL_ROOT_PASSWORD: somepass
             MYSQL_DATABASE: somedatabase
-    #volumes: 
-    #    - ./data:/var/lib/mysql
+    volumes: 
+        - ./data:/var/lib/mysql
     dbclient:
         image: mysql:latest
         depends_on: 
