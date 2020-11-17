@@ -199,7 +199,106 @@ RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
 - ctrl + c
 - docker-compose up --build
 --------------------------------------------------------------------------------------------------------------------
-
+5_4)
+version: '3'
+services: 
+    phpapp:
+        build: 
+            context: ./
+            dockerfile: Dockerfile
+        image: phpapp:1.1
+        ports: 
+            - "8080:80"
+        volumes: 
+            - "./:/var/www/html"
+        container_name: myphp-app
+    db:
+        image: mysql:5.7
+        restart: always
+        environment: 
+            MYSQL_ROOT_PASSWORD: my!!root!!passwd
+        container_name: myphp-db
+-------------------
+FROM php:7.2-apache
+RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
+-----------------------
+<?
+header("content-type: text");
+$host = "db";// The host name db from our docker-compose file
+$username = "root"; // We use the root password
+$pw = "my!!root!!passwd"; // This the password we set in the docker-compose file
+$conn=new mysqli($host,$username,$pw);
+if($conn->connect_errno > 0){
+    echo $db->connect_error;
+}else{
+    echo "DB connection successfull\n\n";
+    // we read out the connection
+    $result
+}
+---------------------------------------------------------------------------------
+5_5)
+version: '3'
+services:
+    db:
+        image: mysql:latest
+        restart: always
+        container_name: myphpapp-db
+        environment:
+            MYSQL_ROOT_PASSWORD: somepass
+            MYSQL_DATABASE: somedatabase
+        volumes: 
+            - ./data:/var/lib/mysql
+    dbclient:
+        image: mysql:latest
+        depends_on: 
+            - db
+        command: mysql -uroot -psomepass -hdb
+----------------------------------------
+- volumes are two types
+    - Hosted Directory volume Mounting
+    - Named volume Mounting
+- here we discussing about Named Hosted volume
+- with databases
+------------------------------------------------
+  version: '3'
+services:
+    db:
+        image: mysql:latest
+        restart: always
+        container_name: myphpapp-db
+        environment:
+            MYSQL_ROOT_PASSWORD: somepass
+            MYSQL_DATABASE: somedatabase
+        volumes: 
+            - ./data:/var/lib/mysql
+    dbclient:
+        image: mysql:latest
+        depends_on: 
+            - db
+        command: mysql -uroot -psomepass -hdb
+----------------------------------
+- docker compose up -d
+- docker compose run --rm dbclient
+- with volumes and without volumes
+- just put # in front of the volumes
+- 
+--------------------------------------------------
+5_6)
+version: '3.7'
+services: 
+    db:
+        image: mysql:latest
+        restart: always
+        container_name: myphpapp-db
+        environment: 
+            MYSQL_ROOT_PASSWORD:
+            MYSQL_DATABASE:
+        volumes: 
+            - my-vol:/var/lib/sql
+volumes: 
+    my-vol:
+- here we my-vol is same as the volume used for named volume created
+- 
 
 
 
